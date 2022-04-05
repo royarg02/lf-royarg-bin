@@ -1,0 +1,31 @@
+name: Validate and upload package
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  package-validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Validate PKGBUILD
+        uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: 'pkgbuild'
+          pkgname: 'lf-royarg-bin'
+
+      - name: Validate SRCINFO
+        uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: 'srcinfo'
+          pkgname: 'lf-royarg-bin'
+
+      - name: Validate binary
+        uses: 2m/arch-pkgbuild-builder@v1.18
+        with:
+          target: 'run'
+          pkgname: 'lf-royarg-bin'
+          command: 'lf --version'
