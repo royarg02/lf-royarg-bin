@@ -3,6 +3,11 @@ on:
   push:
     branches:
       - master
+  pull_request:
+    types:
+      - opened
+    branches:
+      - master
 
 jobs:
   package-validate:
@@ -15,17 +20,17 @@ jobs:
         uses: 2m/arch-pkgbuild-builder@v1.18
         with:
           target: 'pkgbuild'
-          pkgname: 'lf-royarg-bin'
+          pkgname: '.'
 
       - name: Validate SRCINFO
         uses: 2m/arch-pkgbuild-builder@v1.18
         with:
           target: 'srcinfo'
-          pkgname: 'lf-royarg-bin'
+          pkgname: '.'
 
       - name: Validate binary
         uses: 2m/arch-pkgbuild-builder@v1.18
         with:
           target: 'run'
-          pkgname: 'lf-royarg-bin'
+          pkgname: '.'
           command: 'lf --version'
