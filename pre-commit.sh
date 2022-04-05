@@ -5,6 +5,14 @@
 # needed
 # - Generate the .SRCINFO file and add it to the commit if needed
 
+# Cleanup function
+cleanup() {
+  # Remove directories and files created/downloaded by makepkg
+  rm --force --recursive pkg src *.part *.pkg.tar.zst *.tar.gz *.desktop *.1 LICENSE
+}
+
+trap cleanup SIGINT EXIT
+
 # Generate the checksums in the PKGBUILD file
 updpkgsums
 
@@ -27,8 +35,5 @@ if [ -n "$(git status --short | grep ' .SRCINFO$')" ]; then
   git add .SRCINFO
   printf "Added the .SRCINFO file to the commit\n"
 fi
-
-# Remove directories and files created/downloaded by makepkg
-rm --force --recursive pkg src *.pkg.tar.zst *.tar.gz *.desktop *.1 LICENSE
 
 printf "All done!\n"
