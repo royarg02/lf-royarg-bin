@@ -4,6 +4,8 @@ on:
     workflows: ['CI']
     types:
       - completed
+    branches:
+      - master
 
 # `makepkg` cannot be run as root. The job uses the "build" user instead to make
 # the package.
