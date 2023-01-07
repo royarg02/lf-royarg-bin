@@ -19,9 +19,9 @@ updpkgsums
 # Remove files downloaded by updpkgsums
 rm *.tar.gz *.desktop *.1 LICENSE
 
-# Check if the checksums in the PKGBUILD file changed
-if [ -n "$(git diff PKGBUILD | grep '^+md5sums')" ]; then
-  printf "Updated the checksums in the PKGBUILD file\n"
+# Check if the PKGBUILD file changed
+if [ -n "$(git status --short | grep ' PKGBUILD$')" ]; then
+  printf "Updated the PKGBUILD file\n"
   git add PKGBUILD
   printf "Added the PKGBUILD file to the commit\n"
 fi
